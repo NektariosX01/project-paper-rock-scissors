@@ -59,14 +59,23 @@ const getWinner = (
 // }
 
 startGameBtn.addEventListener('click', () => {
+
     if (gameIsRunning) {
         return;
     }
     gameIsRunning = true;
-    alert(`Game is about to start...get excited!!!`);
+
+    // Swal.fire({
+    //     title: 'Get Ready...',
+    //     text: 'The Game is Starting...Get Excited!!! :)',
+    //     icon: "success",
+    // });
+
+    alert('Game is starting')
     const playerChoice = getPlayerChoice();
     const computerChoice = getComputerChoice();
     let winner;
+
     if (playerChoice) {
         winner = getWinner(computerChoice, playerChoice);
     } else {
@@ -75,13 +84,16 @@ startGameBtn.addEventListener('click', () => {
     let message = `You picked ${playerChoice ||
     DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore you `;
     if (winner === RESULT_DRAW) {
-        message = message + 'had a draw.';
+        message = message + 'had a draw... :/';
     } else if (winner === RESULT_PLAYER_WINS) {
-        message = message + 'won.';
+        message = message + 'WON! WOOHOO!!! :)';
     } else {
-        message = message + 'lost.';
+        message = message + 'lost... :(';
     }
-    alert(message);
+    Swal.fire({
+        title: 'Result',
+        text: message,
+        icon: "info",
+    });
     gameIsRunning = false;
 });
-
